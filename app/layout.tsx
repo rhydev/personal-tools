@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import '@mantine/core/styles.css'
+import '@/app/globals.css'
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps, MantineColorsTuple, createTheme } from '@mantine/core'
+import { Header } from '@/app/ui/header'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -41,6 +43,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           theme={theme}
           defaultColorScheme="dark"
         >
+          <Header />
           {children}
         </MantineProvider>
       </body>
