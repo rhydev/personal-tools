@@ -15,44 +15,16 @@ import {
   ActionIcon,
   HoverCard,
   SimpleGrid,
-  ThemeIcon,
   Box,
   useMantineTheme,
-  Text,
   Button,
   Divider,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import classes from './header.module.css'
 import Link from 'next/link'
-import { IconChevronDown, IconMoon, IconSun, IconCalculator, IconNote, IconToolsKitchen3 } from '@tabler/icons-react'
-
-const hoverCardData = [
-  {
-    icon: IconNote,
-    title: 'Notes',
-    description: 'Note taking app',
-    link: '/notes',
-  },
-  {
-    icon: IconCalculator,
-    title: 'BMI Calculator',
-    description: 'Simple BMI calculator',
-    link: '/bmi-calculator',
-  },
-  {
-    icon: IconCalculator,
-    title: 'TDEE Calculator',
-    description: 'Simple TDEE calculator',
-    link: '/tdee-calculator',
-  },
-  {
-    icon: IconToolsKitchen3,
-    title: 'Calories Tracker',
-    description: 'Calories tracking app',
-    link: '/calories-tracker',
-  },
-]
+import { IconChevronDown, IconMoon, IconSun } from '@tabler/icons-react'
+import { LinkCards } from '@/app/ui/linkCards'
 
 export function Header() {
   const { setColorScheme } = useMantineColorScheme()
@@ -62,53 +34,6 @@ export function Header() {
 
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false)
   const theme = useMantineTheme()
-
-  const links = hoverCardData.map((item) => (
-    <UnstyledButton
-      className={classes.subLink}
-      key={item.title}
-      bdrs={opened ? '' : 'md'}
-      style={{
-        width: '100%',
-      }}
-      renderRoot={(props) => (
-        <Link
-          href={item.link}
-          {...props}
-        />
-      )}
-    >
-      <Group
-        wrap="nowrap"
-        align="flex-start"
-      >
-        <ThemeIcon
-          size={34}
-          variant="default"
-          radius="md"
-        >
-          <item.icon
-            size={22}
-            color={theme.colors[theme.primaryColor][4]}
-          />
-        </ThemeIcon>
-        <div>
-          <Text
-            size="sm"
-            fw={500}
-          >
-            {item.title}
-          </Text>
-          <Text
-            size="xs"
-            c="dimmed"
-          >
-            {item.description}
-          </Text>
-        </div>
-      </Group>
-    </UnstyledButton>
-  ))
 
   return (
     <header className={classes.header}>
@@ -164,7 +89,7 @@ export function Header() {
                 cols={2}
                 spacing={0}
               >
-                {links}
+                <LinkCards cardType="header" />
               </SimpleGrid>
             </HoverCard.Dropdown>
           </HoverCard>
@@ -232,7 +157,9 @@ export function Header() {
               />
             </Center>
           </UnstyledButton>
-          <Collapse expanded={linksOpened}>{links}</Collapse>
+          <Collapse expanded={linksOpened}>
+            <LinkCards cardType="collapse" />
+          </Collapse>
 
           <Divider my="sm" />
 
